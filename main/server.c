@@ -11,6 +11,7 @@
 #include "lwip/sys.h"
 #include <esp_http_server.h>
 #include "wifi.h"
+#include "server.h"
 
 static const char *TAG = "SERVER";
 const char *loading_page = "<head>"
@@ -79,6 +80,7 @@ const char *login_page = "<head>"
                          "<style>"
                          "body {display: flex;align-items: center;justify-content: center;flex-direction: column;}"
                          "</style>";
+
 static esp_err_t get_form_handler(httpd_req_t *req)
 {
     char *buf;
@@ -92,6 +94,7 @@ static esp_err_t get_form_handler(httpd_req_t *req)
         if (httpd_req_get_hdr_value_str(req, "Host", buf, buf_len) == ESP_OK)
         {
             ESP_LOGI(TAG, "Found header => Host: %s", buf);
+            strcpy(host, buf);
         }
         free(buf);
     }

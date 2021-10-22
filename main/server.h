@@ -5,5 +5,6 @@
 #define SERVER_H
 
 httpd_handle_t start_webserver(void);
+char host[20];
 
 #endif

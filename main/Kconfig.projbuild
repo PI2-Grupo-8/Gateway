@@ -45,3 +45,31 @@ menu "Station Configuration"
         help
             Set the Maximum retry to avoid station reconnecting to the AP unlimited when the AP is really inexistent.
 endmenu
+
+menu "Vehicle Configuration"
+
+    config VEHICLE_TOKEN
+        string "Token"
+        default "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImdhYnJpZWxhYmd1ZWRlc0BnbWFpbC5jb20iLCJuYW1lIjoiZ2FiaSIsIl9pZCI6IjYxNzFkYzdjM2IyY2ZlNGQwYzE3ZTU1NyIsImlhdCI6MTYzNDg1NDkzMX0.Kj3nb4DUcup2efAtb8GRKxuUjemusVtUTUzK8OSHoqw"
+        help
+            token for vehicle authentication.
+
+    config VEHICLE_API_ROUTE
+        string "API Route"
+        default "192.168.1.21:3001"
+        help
+            Route to use Vehicle API.
+
+
+    config SENSORS_API_ROUTE
+        string "sensor API Route"
+        default "192.168.1.21:3003"
+        help
+            Route to use sensor API.
+
+    config VEHICLE_CODE
+        string "code"
+        default "XLR8" 
+        help
+            Vehicle code.
+endmenu
