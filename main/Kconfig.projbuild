@@ -56,16 +56,16 @@ menu "Vehicle Configuration"
 
     config VEHICLE_API_ROUTE
         string "API Route"
-        default "192.168.1.21:3001"
+        default "{{Your local IP Address}}:3001"
         help
-            Route to use Vehicle API.
+            Route to use Vehicle API, you should put your machine ip address with :3001 to reach the API.
 
 
     config SENSORS_API_ROUTE
         string "sensor API Route"
-        default "192.168.1.21:3003"
+        default "{{Your local IP Address}}:3003"
         help
-            Route to use sensor API.
+            Route to use sensor API, you should put your machine ip address with :3003 to reach the API.
 
     config VEHICLE_CODE
         string "code"

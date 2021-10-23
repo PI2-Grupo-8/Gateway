@@ -11,6 +11,8 @@
 #include "lwip/err.h"
 #include "lwip/sys.h"
 
+#include "http_client.h"
+
 #define ESP_AP_WIFI_SSID CONFIG_ESP_AP_WIFI_SSID
 #define ESP_AP_WIFI_PASS CONFIG_ESP_AP_WIFI_PASSWORD
 #define ESP_AP_WIFI_CHANNEL CONFIG_ESP_AP_WIFI_CHANNEL
@@ -156,6 +158,7 @@ void connect_to_station(char *ssid, char *password)
         ESP_LOGI(TAGST, "connected to ap SSID:%s password:%s",
                  sta_config.sta.ssid, password);
         is_connected = 1;
+        get_vehicle_id();
     }
     else if (bits & WIFI_FAIL_BIT)
     {
