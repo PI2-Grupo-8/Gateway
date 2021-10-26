@@ -1,51 +1,101 @@
-# Wi-Fi SoftAP Example
+# Gateway
 
-(See the README.md file in the upper level 'examples' directory for more information about examples.)
+Componente de Gateway do Strongberry, responsável pela comunicação entre o sistema embarcado e as APIs. O Gateway foi desenvolvido para ser executado em uma ESP 32 LoRa que deve ser localizada perto da área de trabalho do veículo.
 
-This example shows how to use the Wi-Fi SoftAP functionality of the Wi-Fi driver of ESP for serving as an Access Point.
+## Pré-requisitos
 
-## How to use example
+É necessário ter uma placa ESP 32 conectada no computador via cabo USB para conseguir executar o programa.
 
-### Configure the project
+### Ambiente de desenvolvimento da ESP 32
 
-Open the project configuration menu (`idf.py menuconfig`). 
+O sistema utiliza do ambiente de desenvolvimento da ESP 32, que deve ser instalado no computador.
 
-In the `Example Configuration` menu:
+Utilize do comando abaixo para fazer a instalação no Linux Ubuntu ou Debian.
 
-* Set the Wi-Fi configuration.
-    * Set `WiFi SSID`.
-    * Set `WiFi Password`.
-
-Optional: If you need, change the other options according to your requirements.
-
-### Build and Flash
-
-Build the project and flash it to the board, then run the monitor tool to view the serial output:
-
-Run `idf.py -p PORT flash monitor` to build, flash and monitor the project.
-
-(To exit the serial monitor, type ``Ctrl-]``.)
-
-See the Getting Started Guide for all the steps to configure and use the ESP-IDF to build projects.
-
-* [ESP-IDF Getting Started Guide on ESP32](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/index.html)
-* [ESP-IDF Getting Started Guide on ESP32-S2](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s2/get-started/index.html)
-* [ESP-IDF Getting Started Guide on ESP32-C3](https://docs.espressif.com/projects/esp-idf/en/latest/esp32c3/get-started/index.html)
-
-## Example Output
-
-There is the console output for this example:
-
-```
-I (917) phy: phy_version: 3960, 5211945, Jul 18 2018, 10:40:07, 0, 0
-I (917) wifi: mode : softAP (30:ae:a4:80:45:69)
-I (917) wifi softAP: wifi_init_softap finished.SSID:myssid password:mypassword
-I (26457) wifi: n:1 0, o:1 0, ap:1 1, sta:255 255, prof:1
-I (26457) wifi: station: 70:ef:00:43:96:67 join, AID=1, bg, 20
-I (26467) wifi softAP: station:70:ef:00:43:96:67 join, AID=1
-I (27657) tcpip_adapter: softAP assign IP to station,IP is: 192.168.4.2
+```sh
+sudo apt-get install git wget flex bison gperf python3 python3-pip python3-setuptools cmake ninja-build ccache libffi-dev libssl-dev dfu-util libusb-1.0-0
 ```
 
-## Troubleshooting
+Para a instalação em outros sistemas operacionais, veja os links abaixo:
+* [Linux](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/linux-setup.html)
+* [Windows](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/windows-setup.html)
+* [MacOS](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/macos-setup.html)
 
-For any technical queries, please open an [issue](https://github.com/espressif/esp-idf/issues) on GitHub. We will get back to you soon.
+### ESP-IDF
+
+O projeto utiliza da biblioteca ESP-IDF da Espressif, para instala-la é necessário baixar o repositório com os seguintes comandos:
+
+```sh
+mkdir -p ~/esp
+cd ~/esp
+git clone --recursive https://github.com/espressif/esp-idf.git
+```
+
+Dessa forma a ESP-IDF será salva em `~/esp/esp-idf` e para instalar, é necessário entrar na pasta e executar o script de instalação. Veja os comandos abaixo:
+
+```sh
+cd ~/esp/esp-idf
+./install.sh esp32
+```
+
+Com a biblioteca instalada, execute o comando abaixo dentro da pasta do projeto para incluir as variáveis no PATH:
+
+```sh
+. $HOME/esp/esp-idf/export.sh
+```
+
+## Configuração
+
+Use o comando abaixo para configurar o projeto para ser utilizado na ESP-32.
+
+```sh
+idf.py set-target esp32
+```
+
+*OBS.: Esse comando só é necessário na primeira vez que o projeto for executado.*
+
+### Variáveis de Ambiente
+
+Ajuste as variáveis de ambiente utilizando da interface de configuração da Espressif. Rode o comando abaixo para acessar a interface:
+
+```sh
+idf.py menuconfig
+```
+
+Acesse a opção de `StrongBerry Configuration` e lá coloque as variáveis das rotas das APIs de Veículos (`Vehicle API Route`) e Dados dos Sensores (`Sensors Data API Route`) que serão utilizadas. Caso esteja rodando no seu computador, utilize o seu IP e as portas de cada serviço.
+
+O código de fabricação do veículo também é configurado nesse menu, para altera-lo acesse a variável `Code`. Para desenvolvimento essa variável é atribuida inicialmente como `XLR8`.
+
+## Como rodar
+
+Com o ambiente configurado, rode o gateway seguindo os passos a baixo:
+
+**PASSO 1 -** Crie no sistema um veículo com o código do veículo fornecidos nas variáveis do Gateway. Caso não tenha sido alterado, o código é `XLR8`.
+
+**PASSO 2 -** Conecte a ESP 32 no computador
+
+**PASSO 3 -** Rode o comando abaixo para gravar o firmware na placa e monitorar o terminal
+```sh
+idf.py -p [PORT] flash monitor
+```
+Troque `[PORT]` pela porta onde a ESP 32 está conectada no seu computador. Veja abaixo o padrão de portas para cada sistema:
+
+- Linux - `/dev/tty`;
+- Windows - `COM1`;
+- MacOS - `/dev/cu`
+
+exemplo: `idf.py -p /dev/ttyUSB0 flash monitor`
+
+**PASSO 4 -** Ligue a ESP 32
+
+**PASSO 5 -** Por outro dispositivo acesse o sinal de WiFi StrongBerry que será emitido pela placa.
+
+**PASSO 6 -** Nesse dipositivo conectado à rede do Gateway acesse o endereço `192.168.4.1` via browser, esse endereço dará acesso a uma página como a da imagem abaixo. Forneça os dados de nome da rede e senha do WiFi local e clique em *submit*. Isso permitirá com que o Gateway se conecte a Internet.
+
+![página de login](./img/login_page.png)
+
+Após todos os passos de configuração o Gateway estará conectado as APIs e estará pronto para enviar e receber os dados.
+
+## Referencias
+[Espressif - ESP32 - Get Started](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/index.html#get-started-connect)
+

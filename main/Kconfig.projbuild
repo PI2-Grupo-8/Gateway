@@ -2,13 +2,13 @@ menu "Access point Configuration"
 
     config ESP_AP_WIFI_SSID
         string "WiFi SSID"
-        default "myssid"
+        default "StrongBerry"
         help
             SSID (network name) for the acces to connect to.
 
     config ESP_AP_WIFI_PASSWORD
         string "WiFi Password"
-        default "mypassword"
+        default ""
         help
             WiFi password (WPA or WPA2) for the acces to use.
     config ESP_AP_WIFI_CHANNEL
@@ -46,7 +46,7 @@ menu "Station Configuration"
             Set the Maximum retry to avoid station reconnecting to the AP unlimited when the AP is really inexistent.
 endmenu
 
-menu "Vehicle Configuration"
+menu "StrongBerry Configuration"
 
     config VEHICLE_TOKEN
         string "Token"
@@ -55,21 +55,21 @@ menu "Vehicle Configuration"
             token for vehicle authentication.
 
     config VEHICLE_API_ROUTE
-        string "API Route"
+        string "Vehicle API Route"
         default "{{Your local IP Address}}:3001"
         help
             Route to use Vehicle API, you should put your machine ip address with :3001 to reach the API.
 
 
     config SENSORS_API_ROUTE
-        string "sensor API Route"
+        string "Sensors Data API Route"
         default "{{Your local IP Address}}:3003"
         help
             Route to use sensor API, you should put your machine ip address with :3003 to reach the API.
 
     config VEHICLE_CODE
-        string "code"
-        default "XLR8" 
+        string "Code"
+        default "XLR8"
         help
             Vehicle code.
 endmenu
