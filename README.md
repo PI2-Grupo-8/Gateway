@@ -10,7 +10,7 @@ Componente de Gateway do Strongberry, responsável pela comunicação entre o si
 
 O sistema utiliza do ambiente de desenvolvimento da ESP 32, que deve ser instalado no computador.
 
-Utilize do comando abaixo para fazer a instalação no Linux Ubunto ou Debian.
+Utilize do comando abaixo para fazer a instalação no Linux Ubuntu ou Debian.
 
 ```sh
 sudo apt-get install git wget flex bison gperf python3 python3-pip python3-setuptools cmake ninja-build ccache libffi-dev libssl-dev dfu-util libusb-1.0-0
@@ -92,7 +92,7 @@ exemplo: `idf.py -p /dev/ttyUSB0 flash monitor`
 
 **PASSO 6 -** Nesse dipositivo conectado à rede do Gateway acesse o endereço `192.168.4.1` via browser, esse endereço dará acesso a uma página como a da imagem abaixo. Forneça os dados de nome da rede e senha do WiFi local e clique em *submit*. Isso permitirá com que o Gateway se conecte a Internet.
 
-![página de login](./img/login.jpeg)
+![página de login](./img/login_page.png)
 
 Após todos os passos de configuração o Gateway estará conectado as APIs e estará pronto para enviar e receber os dados.
 
