@@ -70,9 +70,11 @@ O código de fabricação do veículo também é configurado nesse menu, para al
 
 Com o ambiente configurado, rode o gateway seguindo os passos a baixo:
 
-**PASSO 1 -** Conecte a ESP 32 no computador
+**PASSO 1 -** Crie no sistema um veículo com o código do veículo fornecidos nas variáveis do Gateway. Caso não tenha sido alterado, o código é `XLR8`.
 
-**PASSO 2 -** Rode o comando abaixo para gravar o firmware na placa e monitorar o terminal
+**PASSO 2 -** Conecte a ESP 32 no computador
+
+**PASSO 3 -** Rode o comando abaixo para gravar o firmware na placa e monitorar o terminal
 ```sh
 idf.py -p [PORT] flash monitor
 ```
@@ -84,11 +86,15 @@ Troque `[PORT]` pela porta onde a ESP 32 está conectada no seu computador. Veja
 
 exemplo: `idf.py -p /dev/ttyUSB0 flash monitor`
 
-**PASSO 3 -** Ligue a ESP 32
+**PASSO 4 -** Ligue a ESP 32
 
-**PASSO 4 -** Por outro dispositivo acesse o sinal de WiFi StrongBerry que será emitido pela placa.
+**PASSO 5 -** Por outro dispositivo acesse o sinal de WiFi StrongBerry que será emitido pela placa.
 
-**PASSO 5 -** Nesses dipositivo na rede do Gateway acesse o endereço `192.168.4.1` via browser e forneça os dados de usuário e senha do WiFi local. Isso permitirá com que o Gateway se conecte a internet.
+**PASSO 6 -** Nesse dipositivo conectado à rede do Gateway acesse o endereço `192.168.4.1` via browser, esse endereço dará acesso a uma página como a da imagem abaixo. Forneça os dados de nome da rede e senha do WiFi local e clique em *submit*. Isso permitirá com que o Gateway se conecte a Internet.
+
+![página de login](./img/login.jpeg)
+
+Após todos os passos de configuração o Gateway estará conectado as APIs e estará pronto para enviar e receber os dados.
 
 ## Referencias
 [Espressif - ESP32 - Get Started](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/index.html#get-started-connect)
